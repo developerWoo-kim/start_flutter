@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/common/component/custom_text_form_field.dart';
 import 'package:project/user/view/login_screen.dart';
+import 'package:project/common/view/splash_screen.dart';
 
 void main() {
   runApp(
@@ -19,7 +20,7 @@ class _App extends StatelessWidget {
         fontFamily: 'NotoSans',
       ),
       debugShowCheckedModeBanner: false, // 디버그 배너 제거
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }

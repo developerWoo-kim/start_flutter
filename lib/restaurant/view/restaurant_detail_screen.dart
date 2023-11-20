@@ -13,6 +13,7 @@ class RestaurantDetailScreen extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           renderTop(),
+          renderLabel(),
           renderProducts(),
         ],
       )
@@ -41,13 +42,31 @@ class RestaurantDetailScreen extends StatelessWidget {
     );
   }
 
+  SliverPadding renderLabel() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0,),
+      sliver: SliverToBoxAdapter(
+        child: Text(
+          '메뉴',
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+
   renderProducts() {
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            return ProductCard();
+            return Padding(
+              padding: const EdgeInsets.only(top:16.0),
+              child: ProductCard(),
+            );
           },
           childCount: 10
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/common/const/colors.dart';
 import 'package:project/common/layout/default_layout.dart';
+import 'package:project/restaurant/view/restaurant_screen.dart';
 
 class RootTab extends StatefulWidget {
   const RootTab({super.key});
@@ -41,12 +42,12 @@ class _RootTabState extends State<RootTab>
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      title: '건우 앱',
+      title: '모두의 렌탈',
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(), // 탭바에서 스크롤해도 옆으로 안넘어가는 설정
         controller: controller,
         children: [
-          Center(child: Container(child: Text('홈'),)),
+          RestaurantScreen(),
           Center(child: Container(child: Text('음식'),)),
           Center(child: Container(child: Text('주문'),)),
           Center(child: Container(child: Text('프로필'),)),

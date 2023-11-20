@@ -26,12 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
-    // localhost 에뮬레이터 기준
-    final emulatorIp = '10.0.2.2:3000';
-    // localhost 시뮬레이터 기준
-    final simulatorIp = '127.0.0.1:8090';
-
-    final ip = Platform.isIOS ? simulatorIp : emulatorIp;
 
     return DefaultLayout(
       child: SingleChildScrollView(
@@ -71,26 +65,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                     onPressed: () async {
-                      // final rawString = '$username:$password';
+                      final rawString = '$username:$password';
                       // 문자열을 Base64로 인코딩
-                      // Codec<String, String> stringToBase64 = utf8.fuse(base64);
-                      // String token = stringToBase64.encode(rawString);
+                      Codec<String, String> stringToBase64 = utf8.fuse(base64);
+                      String token = stringToBase64.encode(rawString);
 
                       final resp = await dio.post(
-                        'http://$ip/login',
-                        // options: Options(
-                        //
-                        // ),
-                        data: {
-                          'username' : '$username',
-                          'password' : '$password',
-                        }
+                          'http://$ip/auth/login',
+                          options: Options(
+                              headers: {
+                                'Authorization': 'Basic $token',
+                              }
+                          ),
+                          data: {
+                            'username' : '$username',
+                            'password' : '$password',
+                          }
                       );
 
-                      Map<String, dynamic> responseData = json.decode(resp.data);
+                      // Map<String, dynamic> responseData = json.decode(resp.data);
 
-                      final refreshToken = responseData['refreshToken'];
-                      final accessToken = responseData['accessToken'];
+                      final refreshToken = resp.data['refreshToken'];
+                      final accessToken = resp.data['accessToken'];
 
                       await storage.write(key: REFRESH_TOKEN_KEY, value: refreshToken);
                       await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
@@ -110,21 +106,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     )),
                 TextButton(
                   onPressed: () async {
-                    final rawString = '';
-                    // 문자열을 Base64로 인코딩
-                    Codec<String, String> stringToBase64 = utf8.fuse(base64);
-                    String token = stringToBase64.encode(rawString);
-
-                    final resp = await dio.post(
-                      'http://$ip/join',
-                      options: Options(
-                        headers: {
-                          'authorization': 'Bearer $token',
-                        },
-                      ),
-                    );
-
-                    print(resp.data);
+                    // final rawString = '';
+                    // // 문자열을 Base64로 인코딩
+                    // Codec<String, String> stringToBase64 = utf8.fuse(base64);
+                    // String token = stringToBase64.encode(rawString);
+                    //
+                    // final resp = await dio.post(
+                    //   'http://$ip/join',
+                    //   options: Options(
+                    //     headers: {
+                    //       'authorization': 'Bearer $token',
+                    //     },
+                    //   ),
+                    // );
+                    //
+                    // print(resp.data);
                   },
                   style: TextButton.styleFrom(
                     primary: Colors.black,

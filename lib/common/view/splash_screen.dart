@@ -72,15 +72,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      backgroundColor: PRIMARY_COLOR,
+      // backgroundColor: PRIMARY_COLOR,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'asset/img/logo/logo.png',
-              width: MediaQuery.of(context).size.width/2,
+              'asset/img/logo/logo.jpg',
+              width: MediaQuery.of(context).size.width,
             ),
             const SizedBox(height: 16.0),
             CircularProgressIndicator(

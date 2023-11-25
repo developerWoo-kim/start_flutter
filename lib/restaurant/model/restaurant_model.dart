@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../../common/const/data.dart';
+
+part 'restaurant_model.g.dart';
 
 enum RestaurantPriceRange {
   expensive,
@@ -8,23 +11,19 @@ enum RestaurantPriceRange {
   cheap,
 }
 
+@JsonSerializable()
 class RestaurantModel {
-  // 이미지
-  final String id;
-  // 레스토랑 이름
-  final String name;
-
-  final String thumbUrl;
-  // 레스토랑 태그
+  final String id;          // 이미지
+  final String name;        // 레스토랑 이름
+  @JsonKey(
+    fromJson: pathToUrl,
+  )
+  final String thumbUrl;    // 레스토랑 태그
   final List<String> tags;
-  final RestaurantPriceRange priceRange;
-  // 펼점
-  final double ratings;
-  // 평점 갯수
-  final int ratingsCount;
-  // 배송걸리는 시간
+  final RestaurantPriceRange priceRange;  // 펼점
+  final double ratings;       // 평점 갯수
+  final int ratingsCount;     // 배송걸리는 시간
   final int deliveryTime;
-  // 배송 비용
   final int deliveryFee;
 
   RestaurantModel({
@@ -39,21 +38,33 @@ class RestaurantModel {
     required this.deliveryFee,
   });
 
-  factory RestaurantModel.fromJson({
-    required Map<String, dynamic> json,
-  }) {
-    return RestaurantModel(
-        id: json['id'],
-        name: json['name'],
-        thumbUrl: 'http://$ip${json['thumbUrl']}',
-        tags: List<String>.from(json['tags']),
-        priceRange: RestaurantPriceRange.values.firstWhere(
-              (e) => e.name == json['priceRange'],
-        ),
-        ratings: json['ratings'],
-        ratingsCount: json['ratingsCount'],
-        deliveryTime: json['deliveryTime'],
-        deliveryFee: json['deliveryFee'],
-    );
+  //
+
+  factory RestaurantModel.fromJson(Map<String, dynamic> json)
+  => _$RestaurantModelFromJson(json);
+
+  Map<String, dynamic> toJson()
+  => _$RestaurantModelToJson(this);
+
+  static pathToUrl(String value) {
+    return 'http://$ip$value';
   }
+
+  // factory RestaurantModel.fromJson({
+  //   required Map<String, dynamic> json,
+  // }) {
+  //   return RestaurantModel(
+  //       id: json['id'],
+  //       name: json['name'],
+  //       thumbUrl: 'http://$ip${json['thumbUrl']}',
+  //       tags: List<String>.from(json['tags']),
+  //       priceRange: RestaurantPriceRange.values.firstWhere(
+  //             (e) => e.name == json['priceRange'],
+  //       ),
+  //       ratings: json['ratings'],
+  //       ratingsCount: json['ratingsCount'],
+  //       deliveryTime: json['deliveryTime'],
+  //       deliveryFee: json['deliveryFee'],
+  //   );
+  // }
 }

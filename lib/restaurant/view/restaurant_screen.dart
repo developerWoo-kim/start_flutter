@@ -42,14 +42,16 @@ class RestaurantScreen extends StatelessWidget {
                   itemBuilder: (_, index) {
                     final item = snapshot.data![index];
                     final paramItem = RestaurantModel.fromJson(
-                      json : item,
+                      item,
                     );
 
                     return GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (_) => RestaurantDetailScreen(),
+                              builder: (_) => RestaurantDetailScreen(
+                                id: paramItem.id,
+                              ),
                           ),
                         );
                       },

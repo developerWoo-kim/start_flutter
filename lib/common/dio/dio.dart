@@ -82,8 +82,6 @@ class CustomInterceptor extends Interceptor {
       } on DioError catch(e) {
         return handler.reject(e);
       }
-
     }
-    super.onError(err, handler);
   }
 }

@@ -2,31 +2,33 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project/common/const/colors.dart';
 import 'package:project/common/const/data.dart';
+import 'package:project/common/dio/dio.dart';
 import 'package:project/common/layout/default_layout.dart';
 import 'package:dio/dio.dart';
+import 'package:project/common/secure_storage/secure_storage.dart';
 import 'package:project/common/view/root_tab.dart';
 
 import '../../common/component/custom_text_form_field.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   String username = '';
   String password = '';
 
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
-
     return DefaultLayout(
       child: SingleChildScrollView(
         // UI/UX 편의 옵션 : 입력을 끝낸 후 사용자는 스크롤함 -> 스크롤시 키보드 없애는 설정
@@ -87,6 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       final refreshToken = resp.data['refreshToken'];
                       final accessToken = resp.data['accessToken'];
+                      
+                      final storage = ref.read(secureStorageProvider);
 
                       await storage.write(key: REFRESH_TOKEN_KEY, value: refreshToken);
                       await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);

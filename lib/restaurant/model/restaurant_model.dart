@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:project/common/model/model_with_id.dart';
 import 'package:project/common/utils/DataUtils.dart';
 
 import '../../common/const/data.dart';
@@ -13,7 +14,7 @@ enum RestaurantPriceRange {
 }
 
 @JsonSerializable()
-class RestaurantModel {
+class RestaurantModel implements IModelWithId{
   final String id;          // 이미지
   final String name;        // 레스토랑 이름
   @JsonKey(

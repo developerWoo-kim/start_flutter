@@ -4,6 +4,7 @@ import 'package:project/common/const/data.dart';
 import 'package:project/common/dio/dio.dart';
 import 'package:project/common/model/cursor_pagination_model.dart';
 import 'package:project/common/model/pagination_params.dart';
+import 'package:project/common/repository/base_pagination_repository.dart';
 import 'package:project/restaurant/model/restaurant_detail_model.dart';
 import 'package:project/restaurant/model/restaurant_model.dart';
 import 'package:retrofit/http.dart';
@@ -17,7 +18,7 @@ final restaurantRepositoryProvider = Provider((ref) {
 });
 
 @RestApi()
-abstract class RestaurantRepository{
+abstract class RestaurantRepository implements IBasePaginationRepository<RestaurantModel>{
 
   /**
    * Dio 를 공통적으로 사용하는 이유

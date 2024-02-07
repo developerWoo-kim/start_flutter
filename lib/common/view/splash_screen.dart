@@ -14,6 +14,7 @@ import '../const/colors.dart';
  * 여러가지 데이터를 긁어 와서 어떤 페이지로 보내줘야 하는지 판단하는 기본 페이지
  */
 class SplashScreen extends ConsumerStatefulWidget {
+  static String get routeName => 'splash';
   const SplashScreen({super.key});
 
   @override

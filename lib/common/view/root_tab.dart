@@ -4,6 +4,7 @@ import 'package:project/common/layout/default_layout.dart';
 import 'package:project/restaurant/view/restaurant_screen.dart';
 
 class RootTab extends StatefulWidget {
+  static String get routName => 'home';
   const RootTab({super.key});
 
   @override
